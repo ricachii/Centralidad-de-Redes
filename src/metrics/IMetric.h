@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <functional>
 #include <string>
-#include "graph/Graph.h"
+#include "Graph.h"
 
 // Callback type: (vertices/iterations done, total)
 using ProgressFn = std::function<void(int done, int total)>;
