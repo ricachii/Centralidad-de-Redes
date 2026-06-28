@@ -1,0 +1,11 @@
+dataset,vertices,edges,build_ms,memory_bytes
+yeast,6526,532180,0,24729628
+
+metric,mean_ms,variance_ms,min_ms,max_ms
+Degree Centrality,0.72854,0.00720929,0.6406,0.9234
+Betweenness Centrality,109452,87822.6,109039,110020
+Closeness Centrality,60019.8,3364.74,59902.8,60127.7
+PageRank,298.014,177.393,290.017,337.301
+Average Shortest Path,60041.5,4576.89,59964.1,60157.3
+Eigenvector Centrality,411.498,177.605,403.998,450.736
+Clustering Coefficient,10492.5,341.314,10458.8,10513.6

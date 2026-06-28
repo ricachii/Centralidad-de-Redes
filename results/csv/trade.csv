@@ -1,0 +1,11 @@
+dataset,vertices,edges,build_ms,memory_bytes
+trade,161,22475,0,585324
+
+metric,mean_ms,variance_ms,min_ms,max_ms
+Degree Centrality,0.0248,1.5348e-05,0.0198,0.0316
+Betweenness Centrality,721.996,1602.2,646.984,785.606
+Closeness Centrality,705.494,735.259,673.161,739.082
+PageRank,24.9157,0.176493,24.269,25.6954
+Average Shortest Path,702.463,643.98,671.819,737.145
+Eigenvector Centrality,34.5446,0.0490303,34.2511,34.8958
+Clustering Coefficient,698.536,580.726,665.758,726.076
