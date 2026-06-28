@@ -5,6 +5,7 @@
 EigenvectorCentrality::EigenvectorCentrality(int maxIter, double tol)
     : maxIter_(maxIter), tol_(tol) {}
 
+///Obtenemos la centralidad con un metodo iterativo, actualizamos el vector propio dominante hasta alcanzar cierta tolerancia (tol) o correr la cantidad maxima de iteraciones (maxIter)
 std::unordered_map<int, double> EigenvectorCentrality::compute(const Graph& g, ProgressFn progress) const {
     const auto verts = g.vertices();
     std::unordered_map<int, double> x, next;

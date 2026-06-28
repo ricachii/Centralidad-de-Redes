@@ -1,7 +1,7 @@
 #pragma once
 #include "IMetric.h"
 
-// Local clustering coefficient: C(v) = triangles(v) / (deg(v) * (deg(v)-1))
+//Esta metrica mide que tanto se "condensan" los nodos alrededor de otros, esta es la version local del algoritmo, que mide la cantidad de triangulos que pasan por el nodo.
 class ClusteringCoefficient : public IMetric {
 public:
     std::unordered_map<int, double> compute(

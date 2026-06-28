@@ -1,9 +1,12 @@
 #pragma once
 #include "IMetric.h"
 
-// Power iteration. Converges to the principal eigenvector of the adjacency matrix.
+//Obtiene el vector propio dominante de la matriz de adjacencia del grafo con un metodo iterativo
+//Este vector contiene la centralidad de todos los nodos del grafo, esta metrica representa la "influencia" de un nodo en la red y es la base para el PageRank
 class EigenvectorCentrality : public IMetric {
 public:
+    
+    // Definimos el numero maximo de iteraciones del algoritmo y el error maximo antes de arrojar un valor
     explicit EigenvectorCentrality(int maxIter = 100, double tol = 1e-6);
 
     std::unordered_map<int, double> compute(
