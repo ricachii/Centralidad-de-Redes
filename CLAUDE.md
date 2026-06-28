@@ -25,18 +25,21 @@ Lenguaje: **C++17**. Build: **CMake + MinGW/GCC**.
 - 7 métricas: `src/metrics/`
 - Parsers para ambos datasets: `src/parsers/`
 - Framework de experimentos: `src/experiments/`
-- Tests unitarios: `tests/`
+- Tests unitarios: `tests/` (todos pasan)
 - Experimentos corridos, CSVs generados: `results/csv/`
 - Gráficos generados: `results/plots/`
 - Entrega 1 (PDF LaTeX): `Entrega1/main.tex` y `Entrega1/main.pdf`
 - Documento de comprensión del problema: `comprension_problema.md`
 - EdgeExperiment con 3 zonas (hub/periferico/aleatorio): `src/experiments/EdgeExperiment`
 - Referencias bibliográficas completas en `Entrega1/main.tex` (6 fuentes con DOI)
+- Portada con nombres del grupo en `Entrega1/main.tex`
+- Repositorio en GitHub: https://github.com/ricachii/Centralidad-de-Redes
+- Compilación verificada (mingw32-make -j4, sin errores)
 
 ### Pendiente
-- Informe final en LaTeX (sección experimental con datos reales, conclusiones)
-- Subir a GitHub y agregar link al informe
-- Nombres del grupo en portada de `Entrega1/main.tex`
+- Informe final: sección experimental con tablas y gráficos reales
+- Informe final: análisis de resultados y conclusiones
+- Agregar link al repositorio GitHub dentro del PDF
 
 ---
 
