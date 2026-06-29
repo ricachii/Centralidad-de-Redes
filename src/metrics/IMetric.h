@@ -4,7 +4,7 @@
 #include <string>
 #include "Graph.h"
 
-// Callback type: (vertices/iterations done, total)
+// Tipo callback: (vertices/iteraciones hechas, total)
 using ProgressFn = std::function<void(int done, int total)>;
 
 class IMetric {

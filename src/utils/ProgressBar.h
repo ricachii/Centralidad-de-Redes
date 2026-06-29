@@ -7,7 +7,7 @@ class ProgressBar {
 public:
     explicit ProgressBar(int width = 38) : width_(width) {}
 
-    // Call inside the metric loop. Only redraws every ~1% to avoid flicker.
+    // Se llama dentro del bucle de la metrica. Solo redibuja cada ~1% para evitar parpadeo.
     void update(int done, int total, int run, int runs) {
         if (total <= 0) return;
         int step = std::max(1, total / 100);
@@ -25,14 +25,14 @@ public:
         std::cerr << "] " << (int)(pct * 100) << "%  " << std::flush;
     }
 
-    // Print final line for a completed run.
+    // Imprime la linea final de una corrida completada.
     void finishRun(int run, int runs, double ms) {
         std::cerr << "\r    run " << run << "/" << runs
                   << "  done - " << ms << " ms"
                   << "                              \n" << std::flush;
     }
 
-    // Used for fast metrics (no internal progress): just show run number.
+    // Para metricas rapidas (sin progreso interno): solo muestra el numero de corrida.
     void tickRun(int run, int runs) {
         std::cerr << "\r    run " << run << "/" << runs << "..." << std::flush;
     }

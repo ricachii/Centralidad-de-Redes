@@ -98,12 +98,14 @@ python scripts/plot_results.py
 │   └── plots/                    # Gráficos PNG
 ├── scripts/
 │   └── plot_results.py
-├── Entrega1/
-│   ├── main.tex                  # Fuente LaTeX
-│   └── main.pdf                  # PDF compilado
+├── Informe/
+│   └── Informe_Metricas_Centralidad_Redes.pdf   # Informe final (PDF)
 ├── CMakeLists.txt
 └── build.bat
 ```
+
+> El informe se versiona como PDF compilado. Las fuentes LaTeX se mantienen
+> localmente (excluidas del repositorio vía `.gitignore`).
 
 ---
 

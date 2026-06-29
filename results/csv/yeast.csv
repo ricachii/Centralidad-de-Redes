@@ -2,10 +2,10 @@ dataset,vertices,edges,build_ms,memory_bytes
 yeast,6526,532180,0,24729628
 
 metric,mean_ms,variance_ms,min_ms,max_ms
-Degree Centrality,0.72854,0.00720929,0.6406,0.9234
-Betweenness Centrality,109452,87822.6,109039,110020
-Closeness Centrality,60019.8,3364.74,59902.8,60127.7
-PageRank,298.014,177.393,290.017,337.301
-Average Shortest Path,60041.5,4576.89,59964.1,60157.3
-Eigenvector Centrality,411.498,177.605,403.998,450.736
-Clustering Coefficient,10492.5,341.314,10458.8,10513.6
+Degree Centrality,0.75449,0.0237952,0.6062,1.0627
+Betweenness Centrality,138867,2.29503e+09,115091,281140
+Closeness Centrality,70330.5,1.5225e+07,68349.5,81889.2
+PageRank,252.721,819.442,221.878,314.117
+Average Shortest Path,70446.5,1.09021e+06,68744.6,72024.9
+Eigenvector Centrality,448.699,7438.41,355.079,654.736
+Clustering Coefficient,10636.4,14644.4,10486,10881.2

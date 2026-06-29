@@ -5,7 +5,7 @@
 #include <string>
 #include <stdexcept>
 
-// Adjacency-list graph. Supports directed/undirected and optional edge weights.
+// Grafo con lista de adyacencia. Soporta dirigido/no dirigido y pesos opcionales.
 class Graph {
 public:
     struct Edge {
@@ -15,12 +15,12 @@ public:
 
     explicit Graph(bool directed = false);
 
-    // Construction
+    // Construccion
     void addVertex(int id);
     void addEdge(int from, int to, double weight = 1.0);
     void removeEdge(int from, int to);
 
-    // Queries
+    // Consultas
     bool hasVertex(int id)          const;
     bool hasEdge(int from, int to)  const;
     bool isDirected()               const { return directed_; }
@@ -31,7 +31,7 @@ public:
     const std::vector<Edge>& neighbors(int v) const;
     std::vector<int>         vertices()       const;
 
-    // Memory footprint in bytes (approximate)
+    // Uso de memoria en bytes (aproximado)
     size_t memoryBytes() const;
 
 private:

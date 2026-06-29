@@ -11,3 +11,9 @@ CLAUDE.md
 *.blg
 *.fls
 *.fdb_latexmk
+
+# Fuentes LaTeX del informe (solo se versiona el PDF final)
+Informe/*.tex
+Informe/secciones/
+Informe/compilar.bat
+Informe/main.pdf

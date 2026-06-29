@@ -174,6 +174,11 @@ Con Yeast: V=6526, E=532.180 → lista usa ~24 MB vs ~340 MB de una matriz.
 - **Años disponibles:** 2000, 2005, 2010, 2015, 2018 (combinados en un solo grafo)
 - **Parser:** `PajekParser`
 
+> **Nota sobre los pesos:** el ADT Grafo almacena el peso de las aristas, pero las
+> métricas operan sobre la *topología* no ponderada (caminos por número de saltos,
+> reparto uniforme en PageRank). La dirección de las aristas sí se respeta en Trade.
+> La versión ponderada (Dijkstra, PageRank ponderado) queda como trabajo futuro.
+
 ---
 
 ## Experimentos requeridos
@@ -187,8 +192,10 @@ Con Yeast: V=6526, E=532.180 → lista usa ~24 MB vs ~340 MB de una matriz.
 - Se reporta **media** y **varianza** del tiempo en milisegundos
 
 ### 3. Impacto de modificar aristas
-- **Agregar** 5 aristas en posiciones distintas → medir cambio porcentual en cada métrica
-- **Quitar** 5 aristas en posiciones distintas → medir cambio porcentual en cada métrica
+Se prueba en **tres zonas distintas** de la red según el grado de los nodos fuente:
+*hub* (10% superior), *periférico* (10% inferior) y *aleatorio*.
+- **Agregar** 5 aristas por zona → medir cambio porcentual en cada métrica
+- **Quitar** 5 aristas por zona → medir cambio porcentual en cada métrica
 
 ---
 
@@ -207,7 +214,12 @@ Con Yeast: V=6526, E=532.180 → lista usa ~24 MB vs ~340 MB de una matriz.
 donde $k$ es el número de iteraciones hasta convergencia (en la práctica, < 100).
 
 **Peor caso de construcción del grafo** (lista de adyacencia):
-- `addEdge`: O(1) amortizado
+- `addVertex`: O(1) esperado (inserción en `unordered_map`; O(V) en el peor caso con colisiones)
+- `addEdge`: O(1) esperado (búsqueda en hash + `push_back`)
 - `removeEdge`: O(deg)
 - `hasEdge`: O(deg)
 - Total construcción: O(V + E)
+
+**Complejidad de espacio:** todas las métricas guardan un resultado O(V) (un valor por vértice).
+La mayoría no usa memoria auxiliar adicional más allá del BFS (O(V)); la excepción es
+Betweenness (Brandes), que mantiene listas de predecesores y pila: O(V + E).

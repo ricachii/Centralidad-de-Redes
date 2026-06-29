@@ -24,11 +24,11 @@ static std::vector<EdgeExperiment::Delta> computeDeltas(
     return deltas;
 }
 
-// Returns vertices sorted by degree; slices top or bottom 10% depending on zone.
+// Devuelve los vertices ordenados por grado; toma el 10% superior o inferior segun la zona.
 static std::vector<int> zoneVertices(const Graph& g, EdgeExperiment::Zone zone) {
     auto verts = g.vertices();
     std::sort(verts.begin(), verts.end(), [&g](int a, int b) {
-        return g.neighbors(a).size() > g.neighbors(b).size(); // descending degree
+        return g.neighbors(a).size() > g.neighbors(b).size(); // grado descendente
     });
 
     size_t cut = std::max<size_t>(1, verts.size() / 10);
@@ -36,7 +36,7 @@ static std::vector<int> zoneVertices(const Graph& g, EdgeExperiment::Zone zone) 
         return {verts.begin(), verts.begin() + cut};
     if (zone == EdgeExperiment::Zone::PERIPHERAL)
         return {verts.end() - cut, verts.end()};
-    return verts; // RANDOM: whole graph
+    return verts; // RANDOM: todo el grafo
 }
 
 std::vector<EdgeExperiment::Delta> EdgeExperiment::addEdges(

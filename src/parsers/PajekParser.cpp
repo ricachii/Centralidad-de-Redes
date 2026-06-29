@@ -23,7 +23,7 @@ Graph PajekParser::parse(const std::string& filepath) const {
 
         std::string lower = line;
         std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
-        // Trim leading whitespace for section detection
+        // Quita espacios iniciales para detectar secciones
         size_t first = lower.find_first_not_of(" \t");
         if (first == std::string::npos) continue;
         std::string trimmed = lower.substr(first);
@@ -50,7 +50,7 @@ Graph PajekParser::parse(const std::string& filepath) const {
             double weight = 1.0;
             if (!(ss >> src >> dst)) continue;
             ss >> weight;
-            // *Edges are undirected: add both directions explicitly
+            // *Edges son no dirigidas: agrega ambos sentidos explicitamente
             g.addEdge(src, dst, weight);
             if (directed_) g.addEdge(dst, src, weight);
         }

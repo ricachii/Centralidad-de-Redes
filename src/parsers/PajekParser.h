@@ -1,13 +1,13 @@
 #pragma once
 #include "IParser.h"
 
-// Parses Pajek .net format:
+// Parsea el formato Pajek .net:
 //   *Vertices N
 //      id "label" [x y z]
-//   *Arcs       ← directed edges
-//      src dst weight
-//   *Edges      ← undirected edges (treated as directed both ways)
-//      src dst weight
+//   *Arcs       <- aristas dirigidas
+//      src dst peso
+//   *Edges      <- aristas no dirigidas (se agregan en ambos sentidos)
+//      src dst peso
 class PajekParser : public IParser {
 public:
     explicit PajekParser(bool directed = true);

@@ -5,14 +5,14 @@
 #include <vector>
 #include <string>
 
-// Measures impact on metrics when adding or removing edges
+// Mide el impacto en las metricas al agregar o quitar aristas
 class EdgeExperiment {
 public:
-    // Where in the network to place/remove the edge
+    // Donde en la red se coloca/quita la arista
     enum class Zone {
-        RANDOM,      // uniformly random vertices
-        HUB,         // top 10% by degree (highly connected)
-        PERIPHERAL   // bottom 10% by degree (poorly connected)
+        RANDOM,      // vertices uniformemente aleatorios
+        HUB,         // 10% superior por grado (muy conectados)
+        PERIPHERAL   // 10% inferior por grado (poco conectados)
     };
 
     struct Delta {
@@ -22,7 +22,7 @@ public:
         double      percentChange;
     };
 
-    // Add k edges sourced from the given zone and report metric deltas
+    // Agrega k aristas desde la zona dada y reporta los deltas de cada metrica
     static std::vector<Delta> addEdges(
         Graph g,
         const std::vector<std::shared_ptr<IMetric>>& metrics,
@@ -30,7 +30,7 @@ public:
         Zone zone = Zone::RANDOM
     );
 
-    // Remove k edges sourced from the given zone and report metric deltas
+    // Quita k aristas desde la zona dada y reporta los deltas de cada metrica
     static std::vector<Delta> removeEdges(
         Graph g,
         const std::vector<std::shared_ptr<IMetric>>& metrics,

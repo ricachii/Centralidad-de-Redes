@@ -17,11 +17,11 @@ Graph EdgeListParser::parse(const std::string& filepath) const {
     Graph g(directed_);
     std::string line;
 
-    // String -> int mapping (used when vertex IDs are not integers)
+    // Mapeo string -> int (cuando los IDs de vertice no son enteros)
     std::unordered_map<std::string, int> vertexMap;
     int nextId = 0;
 
-    // Seen edges set for deduplication (handles files that list each edge twice)
+    // Conjunto de aristas vistas para deduplicar (archivos que listan cada arista dos veces)
     std::unordered_set<long long> seen;
 
     auto getId = [&](const std::string& token) -> int {
@@ -49,7 +49,7 @@ Graph EdgeListParser::parse(const std::string& filepath) const {
         int src = getId(tokA);
         int dst = getId(tokB);
 
-        // Skip duplicate undirected edges (e.g. files that list A-B and B-A)
+        // Salta aristas no dirigidas duplicadas (ej. archivos que listan A-B y B-A)
         if (!directed_) {
             int lo = std::min(src, dst), hi = std::max(src, dst);
             long long key = (long long)lo * 2000000LL + hi;

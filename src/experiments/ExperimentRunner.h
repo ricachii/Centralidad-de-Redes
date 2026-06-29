@@ -26,7 +26,7 @@ class ExperimentRunner {
 public:
     static const int DEFAULT_RUNS = 10;
 
-    // Runs all metrics N times on g, returns timing stats
+    // Corre todas las metricas N veces sobre g, devuelve estadisticas de tiempo
     static GraphResult run(
         const std::string& datasetName,
         const Graph& g,
@@ -34,6 +34,6 @@ public:
         int runs = DEFAULT_RUNS
     );
 
-    // Saves results to CSV
+    // Guarda los resultados en CSV
     static void saveCSV(const GraphResult& r, const std::string& filepath);
 };
