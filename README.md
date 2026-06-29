@@ -26,7 +26,7 @@ pip install pandas matplotlib
 
 ### Primera vez
 ```powershell
-.\build.bat
+cmake --build build/
 ```
 
 ### Recompilar después de cambios
@@ -38,8 +38,7 @@ mingw32-make -j4
 ### Ejecutar experimentos
 **Siempre desde la raíz del proyecto** (las rutas `data/` son relativas):
 ```powershell
-cd "d:\Proyecto Estructura de datos"
-.\build\centralidad.exe
+.\build\centralidad
 ```
 
 El programa carga ambos datasets, corre cada métrica 10 veces, guarda CSVs en `results/csv/` y experimenta con agregar/quitar aristas en distintas zonas de la red.
@@ -48,8 +47,8 @@ El programa carga ambos datasets, corre cada métrica 10 veces, guarda CSVs en `
 
 ### Correr tests
 ```powershell
-.\build\test_graph.exe
-.\build\test_metrics.exe
+.\build\test_graph
+.\build\test_metrics
 ```
 
 ### Generar gráficos
