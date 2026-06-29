@@ -24,35 +24,58 @@ pip install pandas matplotlib
 
 ## Compilar y ejecutar
 
-### Primera vez
+> ⚠️ **Ejecuta siempre desde la raíz del proyecto**: las rutas a `data/` son relativas.
+
+El proyecto es multiplataforma (C++17 + CMake). Las diferencias entre sistemas operativos:
+
+| | Windows (MinGW) | Linux (GCC) |
+|---|---|---|
+| Configurar + compilar | `.\build.bat` | `cmake -B build && cmake --build build -j4` |
+| Recompilar | `mingw32-make -j4` | `cmake --build build -j4` |
+| Ejecutable | `centralidad.exe` | `centralidad` (sin extensión) |
+| Separador de rutas | `\` (backslash) | `/` (forward slash) |
+
+### Windows (MinGW + PowerShell)
+
 ```powershell
-cmake --build build/
+# Primera vez: configura, compila y ejecuta (todo en uno)
+.\build.bat
+
+# Recompilar después de cambios
+cd build; mingw32-make -j4
+
+# Ejecutar experimentos (desde la raíz)
+.\build\centralidad.exe
+
+# Tests
+.\build\test_graph.exe
+.\build\test_metrics.exe
 ```
 
-### Recompilar después de cambios
-```powershell
-cd build
-mingw32-make -j4
-```
+### Linux (GCC + make)
 
-### Ejecutar experimentos
-**Siempre desde la raíz del proyecto** (las rutas `data/` son relativas):
-```powershell
-.\build\centralidad
+```bash
+# Primera vez: configurar + compilar
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j4
+
+# Recompilar después de cambios
+cmake --build build -j4
+
+# Ejecutar experimentos (desde la raíz)
+./build/centralidad
+
+# Tests
+./build/test_graph
+./build/test_metrics
 ```
 
 El programa carga ambos datasets, corre cada métrica 10 veces, guarda CSVs en `results/csv/` y experimenta con agregar/quitar aristas en distintas zonas de la red.
 
 > Betweenness en Yeast tarda ~18 minutos en total (10 runs × ~109 segundos cada una).
 
-### Correr tests
-```powershell
-.\build\test_graph
-.\build\test_metrics
-```
-
-### Generar gráficos
-```powershell
+### Generar gráficos (Windows y Linux)
+```bash
 python scripts/plot_results.py
 ```
 
