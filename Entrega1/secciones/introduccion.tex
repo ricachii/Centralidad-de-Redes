@@ -1,0 +1,29 @@
+\section{Introducción}
+
+Una \textbf{red} es una estructura matemática compuesta por un conjunto de \textbf{vértices}
+(nodos) y un conjunto de \textbf{aristas} (relaciones entre nodos). Formalmente, un grafo
+$G = (V, E)$ donde $V$ es el conjunto de vértices y $E \subseteq V \times V$ el de aristas.
+
+Las redes aparecen de forma natural en muchos dominios:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Dominio} & \textbf{Vértice} & \textbf{Arista} \\
+\midrule
+Biología & Proteína & Interacción física \\
+Comercio & País & Flujo comercial \\
+Cine & Actor & Aparición en la misma película \\
+Informática & Dirección IP & Conexión de red \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Una pregunta central en el análisis de redes es: \textit{¿cuál elemento es el más
+``importante''?} La respuesta depende de qué se entiende por importancia. Las
+\textbf{métricas de centralidad} responden esta pregunta desde distintos ángulos,
+cada una capturando una noción diferente de relevancia estructural.
+
+En este proyecto se implementan \textbf{siete métricas de centralidad}, aplicadas
+sobre dos redes reales: la red de interacciones proteína-proteína de levadura (\textit{Yeast PPI})
+y la red de comercio internacional (\textit{Trade Network}).

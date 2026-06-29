@@ -1,0 +1,73 @@
+\section{Análisis de Complejidad Teórica}
+
+\subsection{Representación: Lista de Adyacencia}
+
+Se utiliza una lista de adyacencia implementada con \texttt{unordered\_map<int, vector<Edge>>}.
+Esta representación es óptima para redes reales, que son típicamente dispersas ($|E| \ll |V|^2$)~\cite{cormen2009}.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Representación} & \textbf{Memoria} & \textbf{Iterar vecinos} & \textbf{Verificar arista} \\
+\midrule
+Lista de adyacencia & $O(|V|+|E|)$ & $O(\deg(v))$ & $O(\deg(v))$ \\
+Matriz de adyacencia & $O(|V|^2)$ & $O(|V|)$ & $O(1)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Para Yeast con $|V| = 6.526$, una matriz requeriría $6.526^2 \approx 42$ millones de
+entradas ($\sim 340$ MB), mientras que la lista de adyacencia ocupa $\sim 24$ MB.
+
+\subsection{Operaciones sobre el Grafo}
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+\textbf{Operación} & \textbf{Complejidad} \\
+\midrule
+\texttt{addVertex} & $O(1)$ esperado \\
+\texttt{addEdge} & $O(1)$ esperado \\
+\texttt{removeEdge} & $O(\deg(v))$ \\
+\texttt{hasEdge} & $O(\deg(v))$ \\
+Construcción completa & $O(|V|+|E|)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\texttt{addVertex} inserta en \texttt{unordered\_map} y \texttt{addEdge} hace una búsqueda
+en \texttt{unordered\_map} más un \texttt{push\_back} en \texttt{vector}. Ambas son $O(1)$
+\textbf{esperado} (caso promedio con función de hash uniforme), no amortizado en el sentido
+estricto: en el peor caso con colisiones degeneradas, la complejidad sube a $O(|V|)$.
+
+\subsection{Complejidad de las Métricas}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Métrica} & \textbf{Complejidad} & \textbf{Algoritmo base} \\
+\midrule
+Degree Centrality & $O(|V|+|E|)$ & Recorrido de vecinos \\
+Betweenness Centrality & $O(|V| \cdot |E|)$ & Brandes (BFS por fuente) \\
+Closeness Centrality & $O(|V| \cdot (|V|+|E|))$ & BFS por fuente \\
+PageRank & $O(k \cdot (|V|+|E|))$ & Iteración de potencias \\
+Average Shortest Path & $O(|V| \cdot (|V|+|E|))$ & BFS por fuente \\
+Eigenvector Centrality & $O(k \cdot (|V|+|E|))$ & Power Iteration \\
+Clustering Coefficient & $O(|V| \cdot \overline{\deg}^{\,2})$ & Conteo de triángulos \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+donde $k$ es el número de iteraciones hasta convergencia ($k < 100$ en la práctica)
+y $\overline{\deg}$ es el grado promedio de la red.
+
+\textbf{Peor caso dominante:} Betweenness con $O(|V| \cdot |E|)$. Para Yeast esto
+implica $6.526 \times 532.180 \approx 3{,}47 \times 10^9$ operaciones por ejecución,
+lo que se verá reflejado en los experimentos.
+
+\subsection{Relación entre Métricas}
+
+Las métricas no son independientes. En redes reales existe correlación positiva entre
+Degree y Eigenvector Centrality (hubs se conectan con hubs), mientras que Betweenness
+puede identificar vértices con degree moderado pero posición estructural estratégica
+(puentes entre comunidades). Esta comparación es parte del análisis experimental.

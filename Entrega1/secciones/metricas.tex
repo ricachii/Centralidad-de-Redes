@@ -1,0 +1,182 @@
+\section{Métricas de Centralidad}
+
+\subsection{Degree Centrality}
+
+\textbf{Concepto.} Un vértice es importante si tiene muchas conexiones directas.
+Es la métrica más simple y sirve como referencia para comparar con las demás.
+
+\textbf{Fórmula} (grafo no dirigido, normalizada):
+\[
+C_D(v) = \frac{\deg(v)}{n - 1}
+\]
+donde $\deg(v)$ es el número de vecinos directos de $v$ y $n = |V|$.
+
+En grafos \textbf{dirigidos} se distingue in-degree (aristas entrantes, popularidad)
+y out-degree (aristas salientes, actividad).
+
+\textbf{Complejidad:} $O(|V| + |E|)$
+
+\textbf{Aplicación.} En la red Yeast PPI, una proteína con alto degree es un
+\textit{hub} biológico cuya eliminación puede resultar letal para el organismo.
+En Trade Network, el in-degree refleja diversificación de importaciones y el
+out-degree el alcance exportador de un país.
+
+% ────────────────────────────────────────────────
+\subsection{Betweenness Centrality}
+
+\textbf{Concepto.} Un vértice es importante si actúa como puente en los caminos
+más cortos entre otros pares. Captura el control sobre el flujo en la red.
+
+\textbf{Fórmula:}
+\[
+C_B(v) = \sum_{\substack{s \neq v \neq t \\ s \neq t}}
+         \frac{\sigma_{st}(v)}{\sigma_{st}}
+\]
+donde $\sigma_{st}$ es el número total de caminos más cortos entre $s$ y $t$,
+y $\sigma_{st}(v)$ los que pasan por $v$.
+
+\textbf{Normalización:}
+\[
+C_B^{\text{norm}}(v) =
+\begin{cases}
+\dfrac{C_B(v)}{(n-1)(n-2)} & \text{dirigido} \\[8pt]
+\dfrac{2\,C_B(v)}{(n-1)(n-2)} & \text{no dirigido}
+\end{cases}
+\]
+
+\textbf{Algoritmo:} Brandes~\cite{brandes2001}, que calcula la betweenness exacta
+para todos los vértices con un BFS por vértice fuente.
+
+\textbf{Complejidad:} $O(|V| \cdot |E|)$
+
+\textbf{Aplicación.} En Yeast PPI, alta betweenness indica proteínas que conectan
+módulos funcionales distintos; su eliminación puede desconectar regiones de la red.
+En Trade Network, identifica países que actúan como intermediarios críticos del
+comercio global.
+
+% ────────────────────────────────────────────────
+\subsection{Closeness Centrality}
+
+\textbf{Concepto.} Un vértice es importante si puede alcanzar rápidamente a todos
+los demás. Se basa en la inversa de la distancia promedio.
+
+\textbf{Fórmula} (Wasserman \& Faust~\cite{wasserman1994}, para grafos desconectados):
+\[
+C_C(v) = \frac{n-1}{N-1} \cdot \frac{n-1}{\displaystyle\sum_{u \neq v} d(v,u)}
+\]
+donde $n$ es el número de vértices alcanzables desde $v$, $N = |V|$ el total,
+y $d(v,u)$ la distancia mínima entre $v$ y $u$.
+
+El factor $\frac{n-1}{N-1}$ penaliza vértices que no alcanzan al resto, permitiendo
+comparar en grafos desconectados.
+
+\textbf{Complejidad:} $O(|V| \cdot (|V|+|E|))$ via BFS desde cada vértice.
+
+\textbf{Aplicación.} En Yeast PPI, alta closeness indica proteínas con rol
+regulatorio global, capaces de transmitir señales al resto de la red en pocas
+interacciones. En Trade Network, países con alta closeness están integrados
+eficientemente con la economía mundial.
+
+% ────────────────────────────────────────────────
+\subsection{PageRank}
+
+\textbf{Concepto.} Un vértice es importante si está conectado a otros vértices
+importantes. Un enlace desde un nodo de alto PageRank vale más~\cite{pagerank1999}.
+
+\textbf{Fórmula iterativa:}
+\[
+PR(v) = \frac{1-d}{n} + d \sum_{u \in N^{-}(v)} \frac{PR(u)}{|N^{+}(u)|}
+\]
+donde $d = 0.85$ es el factor de amortiguación (\textit{damping factor}),
+$N^{-}(v)$ son los vecinos que apuntan a $v$, y $N^{+}(u)$ los destinos de $u$.
+
+El término $\frac{1-d}{n}$ modela la probabilidad de salto aleatorio a cualquier nodo.
+El algoritmo itera hasta convergencia ($\|PR^{(k+1)} - PR^{(k)}\|_1 < 10^{-6}$).
+
+\textbf{Complejidad:} $O(k \cdot (|V|+|E|))$, con $k < 100$ en la práctica.
+
+\textbf{Aplicación.} En Trade Network, el PageRank refleja la importancia de un
+país en el comercio global ponderada por la importancia de sus socios, capturando
+influencia indirecta que el degree no detecta. En Yeast PPI, identifica proteínas
+centrales cuya importancia está reforzada por sus vecinas.
+
+% ────────────────────────────────────────────────
+\subsection{Average Shortest Path}
+
+\textbf{Concepto.} Promedio de las distancias mínimas desde un vértice hacia todos
+los demás alcanzables. Un valor alto indica aislamiento estructural.
+
+\textbf{Fórmula por vértice:}
+\[
+ASP(v) = \frac{1}{|R(v)|} \sum_{u \in R(v)} d(v, u)
+\]
+donde $R(v)$ son los vértices alcanzables desde $v$ (excluyendo $v$).
+
+\textbf{Métrica global:}
+\[
+\overline{ASP} = \frac{1}{|V|} \sum_{v \in V} ASP(v)
+\]
+Esta métrica global cuantifica la compacidad de la red entera. El experimento de
+los \textit{seis grados de separación} corresponde a medir $\overline{ASP}$ en la
+red social humana.
+
+\textbf{Complejidad:} $O(|V| \cdot (|V|+|E|))$
+
+\textbf{Aplicación.} En Yeast PPI, un $\overline{ASP}$ bajo confirma que la red
+es compacta (propiedad de \textit{small-world}), lo que facilita la propagación
+de señales biológicas. En Trade Network, países con bajo $ASP$ individual son los
+más integrados al sistema de comercio global.
+
+% ────────────────────────────────────────────────
+\subsection{Eigenvector Centrality}
+
+\textbf{Concepto.} Extiende el degree ponderando cada vecino por su propia
+centralidad. Es la base matemática del PageRank~\cite{bonacich1987}.
+
+\textbf{Definición.} Sea $\mathbf{A}$ la matriz de adyacencia. El vector
+$\mathbf{x}$ de Eigenvector Centrality satisface:
+\[
+\mathbf{A}\,\mathbf{x} = \lambda\,\mathbf{x}
+\qquad \Longleftrightarrow \qquad
+C_E(v) = \frac{1}{\lambda} \sum_{u \in N(v)} C_E(u)
+\]
+donde $\lambda$ es el autovalor dominante de $\mathbf{A}$ (Perron-Frobenius).
+
+\textbf{Algoritmo:} \textit{Power Iteration}: inicializar $\mathbf{x}^{(0)}$
+uniformemente, iterar $\mathbf{x}^{(k+1)} \leftarrow \mathbf{A}\,\mathbf{x}^{(k)}$
+normalizando por el máximo hasta convergencia.
+
+\textbf{Complejidad:} $O(k \cdot (|V|+|E|))$
+
+\textbf{Diferencia con PageRank.} PageRank agrega un factor de amortiguación $d$ y
+maneja nodos sin salidas. Eigenvector Centrality es la versión pura; ambos coinciden
+cuando $d \to 1$ y no hay nodos dangling.
+
+\textbf{Aplicación.} En Yeast PPI, identifica el núcleo funcional: proteínas que
+interactúan con otras que también son muy conectadas. En Trade Network, captura países
+cuya influencia comercial se amplifica por sus socios.
+
+% ────────────────────────────────────────────────
+\subsection{Clustering Coefficient}
+
+\textbf{Concepto.} Mide qué fracción de los vecinos de un vértice están conectados
+entre sí. Cuantifica la tendencia a formar grupos locales (\textit{clustering})~\cite{watts1998}.
+
+\textbf{Fórmula local:}
+\[
+C_{Cl}(v) = \frac{|\{(u,w) \in E \;:\; u,w \in N(v)\}|}{\deg(v)\,(\deg(v)-1)}
+\]
+El numerador cuenta los pares de vecinos de $v$ que están conectados (triángulos
+que pasan por $v$); el denominador es el máximo posible. El resultado está en $[0,1]$.
+
+\textbf{Coeficiente global:}
+\[
+\overline{C_{Cl}} = \frac{1}{|V|} \sum_{v \in V} C_{Cl}(v)
+\]
+
+\textbf{Complejidad:} $O(|V| \cdot \overline{\deg}^{\,2})$, donde $\overline{\deg}$ es el grado promedio.
+
+\textbf{Aplicación.} En Yeast PPI, alto clustering indica la presencia de complejos
+proteicos: grupos donde todas las proteínas interactúan entre sí (ribosomas, complejos
+de transcripción). En Trade Network, alto clustering de un país indica que sus socios
+comerciales también comercian entre sí, formando bloques económicos regionales.
