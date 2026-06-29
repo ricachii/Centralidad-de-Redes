@@ -1,2 +1,13 @@
 build/
 CLAUDE.md
+
+# Artefactos de compilacion LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
